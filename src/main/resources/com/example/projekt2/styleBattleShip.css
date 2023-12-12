@@ -1,0 +1,60 @@
+.custom_button {
+    -fx-background-color: #64B5F6; /* Białe tło przycisku */
+    -fx-text-fill: black; /* Czarny kolor tekstu */
+    -fx-padding: 0; /* Zerowy padding */
+    -fx-border-color: black; /* Czarna ramka */
+    -fx-border-width: 1px; /* Szerokość ramki */
+    -fx-min-width: 30px; /* Minimalna szerokość */
+    -fx-min-height: 30px; /* Minimalna wysokość */
+    -fx-font-weight: bold;
+    -fx-font-size: 15pt;
+}
+.red {
+    -fx-text-fill: #FF0000; /* Czarny kolor tekstu */
+    /*-fx-border-color: #FF0000; /* Czarny kolor tekstu */
+}
+.green {
+    -fx-text-fill: #39FF14; /* Czarny kolor tekstu */
+}
+
+/* Zmiana koloru przycisku po najechaniu myszką */
+.custom_button:hover {
+    -fx-background-color: #BBDEFB; /* Inny kolor tła po najechaniu myszką */
+}
+
+.menuButton {
+    -fx-background-color: #283593; /* Kolor tła */
+    -fx-text-fill: #BBDEFB; /* Kolor tekstu */
+    -fx-font-size: 18px; /* Rozmiar czcionki */
+    -fx-font-weight: bold; /* Pogrubienie tekstu */
+    -fx-padding: 10px 20px; /* Wewnętrzny odstęp */
+    -fx-border-color: #303f9f; /* Kolor obramowania */
+    -fx-border-width: 2px; /* Grubość obramowania */
+    -fx-border-radius: 5px; /* Zaokrąglenie narożników */
+}
+
+.menuButton:hover {
+    -fx-background-color:#303f9f; /* Kolor tła po najechaniu myszą */
+}
+
+.menuButton:pressed {
+    -fx-background-color: #1a237e; /* Kolor tła po naciśnięciu */
+}
+.background {
+    -fx-background-color: #2196F3;
+}
+.green_frame {
+    -fx-border-color: #39FF14; /* Kolor ramki (zielony) */
+    -fx-border-width: 5px; /* Grubość ramki */
+    -fx-padding: 10px; /* Odstęp wewnątrz BorderPane */
+}
+.red_frame {
+    -fx-border-color: #FF0000; /* Kolor ramki (zielony) */
+    -fx-border-width: 5px; /* Grubość ramki */
+    -fx-padding: 10px; /* Odstęp wewnątrz BorderPane */
+}
+.red-square {
+    -fx-fill: red; /* Kolor wypełnienia: czerwony */
+    -fx-stroke: black; /* Kolor obramowania: czarny */
+    -fx-stroke-width: 2; /* Szerokość obramowania: 2 piksele */
+}
