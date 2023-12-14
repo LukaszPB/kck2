@@ -15,9 +15,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -27,11 +25,9 @@ import java.util.Objects;
 
 public class BattleShipController{
     @FXML
-    private GridPane rightGrid;
+    private AnchorPane anchorPaneRight;
     @FXML
-    private GridPane leftGrid;
-    @FXML
-    private AnchorPane anchorPane;
+    private AnchorPane anchorPaneLeft;
     @FXML
     private BorderPane borderPane;
     @FXML
@@ -59,29 +55,33 @@ public class BattleShipController{
     }
     private void setBoard() {
         for(int i=1;i<=10;i++) {
-            Text text1 = new Text(i + " ");
-            Text text2 = new Text(i + " ");
+            Button text1 = new Button(i + "");
+            Button text2 = new Button(i + "");
 
-            text1.setFont(StageProperties.BOLD_FONT);
-            text2.setFont(StageProperties.BOLD_FONT);
+            text1.getStyleClass().add("label_button");
+            text2.getStyleClass().add("label_button");
 
-            rightGrid.add(text1,0,i);
-            leftGrid.add(text2,0,i);
+            text1.setLayoutY(i*StageProperties.FIELD_SIZE);
+            anchorPaneRight.getChildren().add(text1);
 
-            Text text3 = new Text("   " + (char) (i+96));
-            Text text4 = new Text("   " + (char) (i+96));
+            text2.setLayoutY(i*StageProperties.FIELD_SIZE);
+            anchorPaneLeft.getChildren().add(text2);
 
-            text3.setFont(StageProperties.BOLD_FONT);
-            text4.setFont(StageProperties.BOLD_FONT);
+            Button text4 = new Button("" + (char) (i+96));
+            Button text3 = new Button("" + (char) (i+96));
 
-            rightGrid.add(text3,i,0);
-            leftGrid.add(text4,i,0);
+            text3.getStyleClass().add("label_button");
+            text4.getStyleClass().add("label_button");
+
+            text3.setLayoutX(i*StageProperties.FIELD_SIZE);
+            anchorPaneRight.getChildren().add(text3);
+            text4.setLayoutX(i*StageProperties.FIELD_SIZE);
+            anchorPaneLeft.getChildren().add(text4);
         }
 
 
         for(int i=1;i<=10;i++) {
             for(int j=1;j<=10;j++) {
-
                 Button button1 = new Button();
                 Button button2 = new Button();
 
@@ -94,35 +94,47 @@ public class BattleShipController{
                     button1.setText("X");
                }
 
-                rightGrid.add(button1,i,j);
-                leftGrid.add(button2,i,j);
+                button1.setLayoutX(i*StageProperties.FIELD_SIZE);
+                button1.setLayoutY(j*StageProperties.FIELD_SIZE);
+                anchorPaneRight.getChildren().add(button1);
+
+                button2.setLayoutX(i*StageProperties.FIELD_SIZE);
+                button2.setLayoutY(j*StageProperties.FIELD_SIZE);
+                anchorPaneLeft.getChildren().add(button2);
            }
         }
     }
     private void setShips() {
-        Rectangle rectangle = new Rectangle(30,30);
+        Rectangle rectangle = new Rectangle(28,28);
         rectangle.getStyleClass().add("red-square");
+
         rectangle.setOnMouseDragged((event) -> {
-            double x = event.getSceneX();
-            double y = event.getSceneY();
+            int x = (int) (((event.getSceneX()-120)/30)%10) * 30 + 30;
+            int y = (int) (((event.getSceneY()-120)/30)%10) * 30 + 30;
+
             rectangle.setLayoutX(x);
             rectangle.setLayoutY(y);
+//            System.out.println(event.getScreenX());
+//            double x = event.getScreenX() - 660;
+//            if(x >= 30) {
+//                rectangle.setLayoutX(rectangle.getLayoutX()+30);
+//            }
+//            if(x <= -30) {
+//                rectangle.setLayoutX(rectangle.getLayoutX()-30);
+//            }
         });
-        anchorPane.getChildren().add(rectangle);
-    }
 
+        anchorPaneRight.getChildren().add(rectangle);
+    }
     protected void playerMove(ActionEvent event) {
         if (event.getSource() instanceof Button clickedButton && !gameEnded &&
                 Objects.equals(clickedButton.getText(),"")) {
 
-            Integer rowIndex = GridPane.getRowIndex(clickedButton);
-            Integer colIndex = GridPane.getColumnIndex(clickedButton);
-
-            Point p = new Point(rowIndex-1,colIndex-1);
+            Point p = new Point((int) clickedButton.getLayoutY()/30-1,(int) clickedButton.getLayoutX()/30-1);
             if(computer.getHit(p)) {
                 clickedButton.setText("X");
                 if(computer.getShip(p).getDestroyed()) {
-                    destroyedShip(computer.getShip(p),leftGrid);
+                    destroyedShip(computer.getShip(p),anchorPaneLeft);
                 }
             }
             else {
@@ -137,9 +149,9 @@ public class BattleShipController{
             }
         }
     }
-    private Button getButton(GridPane grid, int x, int y) {
-        for(Node node : grid.getChildren()) {
-            if(GridPane.getRowIndex(node) == x && GridPane.getColumnIndex(node) == y) {
+    private Button getButton(AnchorPane anchorPane, int x, int y) {
+        for(Node node : anchorPane.getChildren()) {
+            if((int) node.getLayoutY()/30 == x && (int) node.getLayoutX()/30 == y) {
                 return node instanceof Button button ? button : null;
             }
         }
@@ -148,7 +160,7 @@ public class BattleShipController{
     private void computerMove(int difficulty) {
         while(true) {
             Point p = computer.shoot(difficulty);
-            Button button = getButton(rightGrid,p.getX()+1,p.getY()+1);
+            Button button = getButton(anchorPaneRight,p.getX()+1,p.getY()+1);
             if(button == null) {
             }
             else if(human.getHit(p)) {
@@ -177,9 +189,9 @@ public class BattleShipController{
             }
         }
     }
-    private void destroyedShip(Ship ship, GridPane grid) {
+    private void destroyedShip(Ship ship, AnchorPane anchorPane) {
         for(Point p : ship.getCords()) {
-            Button button = getButton(grid,p.getX()+1, p.getY()+1);
+            Button button = getButton(anchorPane,p.getX()+1, p.getY()+1);
             if(button != null) {
                 button.getStyleClass().add("red");
             }
@@ -189,14 +201,14 @@ public class BattleShipController{
     private void backToMenu() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("menuView.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), StageProperties.STAGE_WIDTH, StageProperties.STAGE_HEIGHT);
-        Stage stage = (Stage) rightGrid.getScene().getWindow();
+        Stage stage = (Stage) anchorPaneRight.getScene().getWindow();
         stage.setScene(scene);
     }
     @FXML
     private void reset() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("battleShipView.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), StageProperties.STAGE_WIDTH, StageProperties.STAGE_HEIGHT);
-        Stage stage = (Stage) rightGrid.getScene().getWindow();
+        Stage stage = (Stage) anchorPaneRight.getScene().getWindow();
         stage.setScene(scene);
     }
 }

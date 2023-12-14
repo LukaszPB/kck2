@@ -17,25 +17,26 @@
     <top>
         <Label text="BattleShips" alignment="CENTER" BorderPane.alignment="CENTER" fx:id="title">
             <font><Font name="Times New Roman bold" size="50"/></font>
+            <padding>
+                <Insets bottom="25"/>
+            </padding>
         </Label>
     </top>
 
     <right>
-        <AnchorPane fx:id="anchorPane">
-            <GridPane alignment="CENTER" fx:id="rightGrid">
-                <padding>
-                    <Insets right="20" left="20"/>
-                </padding>
-            </GridPane>
+        <AnchorPane fx:id="anchorPaneRight">
+            <padding>
+                <Insets right="20" left="20"/>
+            </padding>
         </AnchorPane>
 
     </right>
     <left>
-        <GridPane alignment="CENTER" fx:id="leftGrid">
+        <AnchorPane fx:id="anchorPaneLeft">
             <padding>
                 <Insets right="20" left="20"/>
             </padding>
-        </GridPane>
+        </AnchorPane>
     </left>
     <bottom>
         <HBox alignment="CENTER" spacing="20">

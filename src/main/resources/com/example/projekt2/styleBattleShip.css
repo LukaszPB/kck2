@@ -8,6 +8,20 @@
     -fx-min-height: 30px; /* Minimalna wysokość */
     -fx-font-weight: bold;
     -fx-font-size: 15pt;
+    -fx-max-width: 30px;
+    -fx-max-height: 30px;
+}
+.label_button {
+    -fx-background-color: #2196F3; /* Białe tło przycisku */
+    -fx-text-fill: black; /* Czarny kolor tekstu */
+    -fx-padding: 0; /* Zerowy padding */
+    -fx-border-width: 0px; /* Szerokość ramki */
+    -fx-min-width: 30px; /* Minimalna szerokość */
+    -fx-min-height: 30px; /* Minimalna wysokość */
+    -fx-font-weight: bold;
+    -fx-font-size: 15pt;
+    -fx-max-width: 30px;
+    -fx-max-height: 30px;
 }
 .red {
     -fx-text-fill: #FF0000; /* Czarny kolor tekstu */
