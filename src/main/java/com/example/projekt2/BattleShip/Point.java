@@ -39,6 +39,15 @@ public class Point {
                 new Point(x+1,y-1), new Point(x+1,y),new Point(x+1,y+1)
         ));
     }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
     @Override
     public String toString() { return x + ":" + y + ", "; }
 }

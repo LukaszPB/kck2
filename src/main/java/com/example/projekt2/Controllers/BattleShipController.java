@@ -105,26 +105,45 @@ public class BattleShipController{
         }
     }
     private void setShips() {
-        Rectangle rectangle = new Rectangle(28,28);
-        rectangle.getStyleClass().add("red-square");
+        for(Ship s : human.getShips()) {
+            Rectangle rectangle = s.getRectangle();
+            anchorPaneRight.getChildren().add(s.getRectangle());
 
-        rectangle.setOnMouseDragged((event) -> {
-            int x = (int) (((event.getSceneX()-120)/30)%10) * 30 + 30;
-            int y = (int) (((event.getSceneY()-120)/30)%10) * 30 + 30;
-
-            rectangle.setLayoutX(x);
-            rectangle.setLayoutY(y);
-//            System.out.println(event.getScreenX());
-//            double x = event.getScreenX() - 660;
-//            if(x >= 30) {
-//                rectangle.setLayoutX(rectangle.getLayoutX()+30);
-//            }
-//            if(x <= -30) {
-//                rectangle.setLayoutX(rectangle.getLayoutX()-30);
-//            }
-        });
-
-        anchorPaneRight.getChildren().add(rectangle);
+            rectangle.setOnMouseClicked((event)-> {
+                s.setLayoutX(event.getSceneX());
+                s.setLayoutY(event.getSceneY());
+            });
+            rectangle.setOnMouseDragged((event) -> {
+                if(event.getSceneX()-s.getLayoutX() >= 30 && rectangle.getLayoutX() <= 270) {
+                    rectangle.setLayoutX(rectangle.getLayoutX()+30);
+                    s.setLayoutX(event.getSceneX());
+                    for(Point p : s.getCords()) {
+                        p.setX(p.getX()+1);
+                    }
+                }
+                if(event.getSceneX()-s.getLayoutX() <= -30 && rectangle.getLayoutX() >= 60) {
+                    rectangle.setLayoutX(rectangle.getLayoutX()-30);
+                    s.setLayoutX(event.getSceneX());
+                    for(Point p : s.getCords()) {
+                        p.setX(p.getX()-1);
+                    }
+                }
+                if(event.getSceneY()-s.getLayoutY() >= 30 && rectangle.getLayoutY() <= 270) {
+                    rectangle.setLayoutY(rectangle.getLayoutY()+30);
+                    s.setLayoutY(event.getSceneY());
+                    for(Point p : s.getCords()) {
+                        p.setY(p.getY()+1);
+                    }
+                }
+                if(event.getSceneY()-s.getLayoutY() <= -30 && rectangle.getLayoutY() >= 60) {
+                    rectangle.setLayoutY(rectangle.getLayoutY()-30);
+                    s.setLayoutY(event.getSceneY());
+                    for(Point p : s.getCords()) {
+                        p.setY(p.getY()-1);
+                    }
+                }
+            });
+        }
     }
     protected void playerMove(ActionEvent event) {
         if (event.getSource() instanceof Button clickedButton && !gameEnded &&

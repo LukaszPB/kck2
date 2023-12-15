@@ -28,6 +28,7 @@ public class OnePointShip extends Ship{
         }
         return false;
     }
+
     @Override
     public String toString()
     {
