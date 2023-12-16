@@ -10,11 +10,14 @@ public abstract class Ship {
 
     protected Rectangle rectangle;
     protected double layoutX, layoutY;
+    protected char direction;
+    double height, width;
 
     public Ship(int x, int y, int size, char direction)
     {
         cords = new Point[size];
         this.size = size;
+        this.direction = direction;
 
         for(int i=0;i<size;i++) {
             switch (direction) {
@@ -24,11 +27,10 @@ public abstract class Ship {
                 case 'd' -> cords[i] = new Point(x,y++);
             }
         }
-        rectangle = generateRectangle(direction);
-        //addListener(rectangle);
-    }
-    private Rectangle generateRectangle(char direction) {
         rectangle = new Rectangle();
+        generateRectangle();
+    }
+    public void generateRectangle() {
 
         int i = direction == 'u' || direction == 'l' ? size-1 : 0;
 
@@ -36,52 +38,18 @@ public abstract class Ship {
         rectangle.setLayoutY(cords[i].getX()*30+30);
 
         if(direction == 'r' || direction == 'l') {
-            rectangle.setHeight(30*size);
-            rectangle.setWidth(30);
+            height = 30*size;
+            width = 30;
+            rectangle.setHeight(height);
+            rectangle.setWidth(width);
         }
         else {
-            rectangle.setHeight(30);
-            rectangle.setWidth(30*size);
+            height = 30;
+            width = 30*size;
+            rectangle.setHeight(height);
+            rectangle.setWidth(width);
         }
-        rectangle.getStyleClass().add("red-square");
-
-        return rectangle;
-    }
-    private void addListener(Rectangle rectangle) {
-        rectangle.setOnMouseClicked((event)-> {
-            layoutX = event.getSceneX();
-            layoutY = event.getSceneY();
-        });
-        rectangle.setOnMouseDragged((event) -> {
-            if(event.getSceneX()-layoutX >= 30 && rectangle.getLayoutX() <= 270) {
-                rectangle.setLayoutX(rectangle.getLayoutX()+30);
-                layoutX = event.getSceneX();
-                for(Point p : cords) {
-                    p.setX(p.getX()+1);
-                }
-            }
-            if(event.getSceneX()-layoutX <= -30 && rectangle.getLayoutX() >= 60) {
-                rectangle.setLayoutX(rectangle.getLayoutX()-30);
-                layoutX = event.getSceneX();
-                for(Point p : cords) {
-                    p.setX(p.getX()-1);
-                }
-            }
-            if(event.getSceneY()-layoutY >= 30 && rectangle.getLayoutY() <= 270) {
-                rectangle.setLayoutY(rectangle.getLayoutY()+30);
-                layoutY = event.getSceneY();
-                for(Point p : cords) {
-                    p.setY(p.getY()+1);
-                }
-            }
-            if(event.getSceneY()-layoutY <= -30 && rectangle.getLayoutY() >= 60) {
-                rectangle.setLayoutY(rectangle.getLayoutY()-30);
-                layoutY = event.getSceneY();
-                for(Point p : cords) {
-                    p.setY(p.getY()-1);
-                }
-            }
-        });
+        rectangle.getStyleClass().add("blue-square");
     }
     public boolean hit(Point p) {
         for(Point point : cords)
@@ -142,4 +110,31 @@ public abstract class Ship {
     public double getLayoutY() { return layoutY; }
     public void setLayoutX(double x) { this.layoutX = x; }
     public void setLayoutY(double y) { this.layoutY = y; }
+
+    public char getDirection() {
+        return direction;
+    }
+    public void setCords(Point[] cords) {
+        this.cords = cords;
+    }
+
+    public void setDirection(char direction) {
+        this.direction = direction;
+    }
+
+    public double getHeight() {
+        return height;
+    }
+
+    public double getWidth() {
+        return width;
+    }
+
+    public void setHeight(double height) {
+        this.height = height;
+    }
+
+    public void setWidth(double width) {
+        this.width = width;
+    }
 }

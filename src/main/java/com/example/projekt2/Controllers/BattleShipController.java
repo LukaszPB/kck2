@@ -13,6 +13,8 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.shape.Rectangle;
@@ -35,6 +37,7 @@ public class BattleShipController{
     private Computer computer;
     private Human human;
     private boolean gameEnded;
+    private boolean newGame;
     @FXML
     private void initialize() {
         ArrayList<Ship> prototype = new ArrayList<Ship>(Arrays.asList(new FourPointShip(),
@@ -51,7 +54,8 @@ public class BattleShipController{
 
         setBoard();
         setShips();
-        gameEnded = false;
+        gameEnded = true;
+        newGame = true;
     }
     private void setBoard() {
         for(int i=1;i<=10;i++) {
@@ -90,10 +94,6 @@ public class BattleShipController{
 
                 button2.setOnAction(this::playerMove);
 
-                if(human.hasShipOnPoint(new Point(j-1,i-1))) {
-                    button1.setText("X");
-               }
-
                 button1.setLayoutX(i*StageProperties.FIELD_SIZE);
                 button1.setLayoutY(j*StageProperties.FIELD_SIZE);
                 anchorPaneRight.getChildren().add(button1);
@@ -109,38 +109,86 @@ public class BattleShipController{
             Rectangle rectangle = s.getRectangle();
             anchorPaneRight.getChildren().add(s.getRectangle());
 
-            rectangle.setOnMouseClicked((event)-> {
+            rectangle.setOnScroll((event)-> {
+
+                switch (s.getDirection()) {
+                    case 'r' -> s.setDirection('d');
+                    case 'l' -> s.setDirection('u');
+                    case 'u' -> s.setDirection('r');
+                    case 'd' -> s.setDirection('l');
+                }
+
+                rectangle.setHeight(s.getWidth());
+                rectangle.setWidth(s.getHeight());
+
+                s.setLayoutX(event.getSceneX());
+                s.setLayoutY(event.getSceneY());
+                rectangle.fireEvent(new MouseEvent(MouseEvent.MOUSE_RELEASED, 0, 0, 0,
+                        0, MouseButton.PRIMARY, 1, true, true, true, true,
+                        true, true, true, true, true, true, null));
+            });
+            rectangle.setOnMousePressed((event)-> {
                 s.setLayoutX(event.getSceneX());
                 s.setLayoutY(event.getSceneY());
             });
             rectangle.setOnMouseDragged((event) -> {
-                if(event.getSceneX()-s.getLayoutX() >= 30 && rectangle.getLayoutX() <= 270) {
+                if(event.getSceneX()-s.getLayoutX() >= 30 && rectangle.getLayoutX() <= 270 -
+                        (s.getDirection() == 'u' || s.getDirection() == 'd' ? 30 * (s.getSize()-1) : 0)) {
                     rectangle.setLayoutX(rectangle.getLayoutX()+30);
                     s.setLayoutX(event.getSceneX());
-                    for(Point p : s.getCords()) {
-                        p.setX(p.getX()+1);
-                    }
                 }
                 if(event.getSceneX()-s.getLayoutX() <= -30 && rectangle.getLayoutX() >= 60) {
                     rectangle.setLayoutX(rectangle.getLayoutX()-30);
                     s.setLayoutX(event.getSceneX());
-                    for(Point p : s.getCords()) {
-                        p.setX(p.getX()-1);
-                    }
                 }
-                if(event.getSceneY()-s.getLayoutY() >= 30 && rectangle.getLayoutY() <= 270) {
+                if(event.getSceneY()-s.getLayoutY() >= 30 && rectangle.getLayoutY() <= 270 -
+                        (s.getDirection() == 'l' || s.getDirection() == 'r' ? 30 * (s.getSize()-1) : 0)) {
                     rectangle.setLayoutY(rectangle.getLayoutY()+30);
                     s.setLayoutY(event.getSceneY());
-                    for(Point p : s.getCords()) {
-                        p.setY(p.getY()+1);
-                    }
                 }
                 if(event.getSceneY()-s.getLayoutY() <= -30 && rectangle.getLayoutY() >= 60) {
                     rectangle.setLayoutY(rectangle.getLayoutY()-30);
                     s.setLayoutY(event.getSceneY());
-                    for(Point p : s.getCords()) {
-                        p.setY(p.getY()-1);
+                }
+            });
+            rectangle.setOnMouseReleased((event) -> {
+                int x,y;
+                switch (s.getDirection()) {
+                    case 'l' -> {
+                        x = (int) (rectangle.getLayoutY()/30-1+s.getSize());
+                        y = (int) (rectangle.getLayoutX()/30-1);
                     }
+                    case 'u' -> {
+                        x = (int) (rectangle.getLayoutY()/30-1);
+                        y = (int) (rectangle.getLayoutX()/30-2+s.getSize());
+                    }
+                    default -> {
+                        x = (int) (rectangle.getLayoutY()/30-1);
+                        y = (int) (rectangle.getLayoutX()/30-1);
+                    }
+                }
+                Ship ship = s.copy(x,y,s.getDirection());
+
+                human.removeShip(s);
+                if(human.validateShip(ship)) {
+                    s.setCords(ship.getCords());
+                    human.addShip(s);
+                    s.setWidth(rectangle.getWidth());
+                    s.setHeight(rectangle.getHeight());
+                }
+                else {
+                    human.addShip(s);
+
+                    if(rectangle.getHeight() != s.getHeight()) {
+                        switch (s.getDirection()) {
+                            case 'r' -> s.setDirection('u');
+                            case 'l' -> s.setDirection('d');
+                            case 'u' -> s.setDirection('l');
+                            case 'd' -> s.setDirection('r');
+                        }
+                    }
+
+                    s.generateRectangle();
                 }
             });
         }
@@ -151,13 +199,15 @@ public class BattleShipController{
 
             Point p = new Point((int) clickedButton.getLayoutY()/30-1,(int) clickedButton.getLayoutX()/30-1);
             if(computer.getHit(p)) {
-                clickedButton.setText("X");
+                clickedButton.setText(" ");
+                clickedButton.getStyleClass().add("less-red-square");
                 if(computer.getShip(p).getDestroyed()) {
                     destroyedShip(computer.getShip(p),anchorPaneLeft);
                 }
             }
             else {
-                clickedButton.setText("O");
+                clickedButton.setText(" ");
+                clickedButton.getStyleClass().add("green-square");
                 computerMove(2);
             }
             if(computer.wasDefeated()) {
@@ -190,8 +240,9 @@ public class BattleShipController{
                 else {
                     computer.setTarget(human.getShip(p));
                 }
-                button.setText("X");
-                button.getStyleClass().add("red");
+
+                button.getStyleClass().remove("blue-square");
+                button.getStyleClass().add("red-square");
 
                 if(human.wasDefeated()) {
                     System.out.println("Przegrałeś");
@@ -202,8 +253,8 @@ public class BattleShipController{
                 }
             }
             else {
-                button.setText("O");
-                button.getStyleClass().add("green");
+                button.getStyleClass().add("green-square");
+                //button.getStyleClass().add("green");
                 break;
             }
         }
@@ -212,7 +263,8 @@ public class BattleShipController{
         for(Point p : ship.getCords()) {
             Button button = getButton(anchorPane,p.getX()+1, p.getY()+1);
             if(button != null) {
-                button.getStyleClass().add("red");
+                button.getStyleClass().remove("less-red-square");
+                button.getStyleClass().add("red-square");
             }
         }
     }
@@ -229,5 +281,21 @@ public class BattleShipController{
         Scene scene = new Scene(fxmlLoader.load(), StageProperties.STAGE_WIDTH, StageProperties.STAGE_HEIGHT);
         Stage stage = (Stage) anchorPaneRight.getScene().getWindow();
         stage.setScene(scene);
+    }
+    @FXML
+    private void startGame() {
+        if(newGame) {
+            for(Node node : anchorPaneRight.getChildren()) {
+                if(node instanceof Button && human.hasShipOnPoint(
+                        new Point((int) node.getLayoutY()/30-1,(int) node.getLayoutX()/30-1)) ) {
+                    node.getStyleClass().add("blue-square");
+                }
+                if(node instanceof Rectangle) {
+                    node.getStyleClass().add("transparent");
+                }
+            }
+            gameEnded=false;
+            newGame=false;
+        }
     }
 }

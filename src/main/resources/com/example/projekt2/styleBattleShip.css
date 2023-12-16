@@ -11,9 +11,12 @@
     -fx-max-width: 30px;
     -fx-max-height: 30px;
 }
+.title {
+    -fx-text-fill: #1a237e;
+}
 .label_button {
     -fx-background-color: #2196F3; /* Białe tło przycisku */
-    -fx-text-fill: black; /* Czarny kolor tekstu */
+    -fx-text-fill: #1a237e; /* Czarny kolor tekstu */
     -fx-padding: 0; /* Zerowy padding */
     -fx-border-width: 0px; /* Szerokość ramki */
     -fx-min-width: 30px; /* Minimalna szerokość */
@@ -45,6 +48,8 @@
     -fx-border-color: #303f9f; /* Kolor obramowania */
     -fx-border-width: 2px; /* Grubość obramowania */
     -fx-border-radius: 5px; /* Zaokrąglenie narożników */
+    -fx-max-height: 30px;
+    -fx-max-width: 140px;
 }
 
 .menuButton:hover {
@@ -56,6 +61,9 @@
 }
 .background {
     -fx-background-color: #2196F3;
+    -fx-border-color: #1a237e; /* Kolor ramki (zielony) */
+    -fx-border-width: 5px; /* Grubość ramki */
+    -fx-padding: 10px; /* Odstęp wewnątrz BorderPane */
 }
 .green_frame {
     -fx-border-color: #39FF14; /* Kolor ramki (zielony) */
@@ -68,5 +76,40 @@
     -fx-padding: 10px; /* Odstęp wewnątrz BorderPane */
 }
 .red-square {
-    -fx-fill: red; /* Kolor wypełnienia: czerwony */
+    -fx-fill: #FF0000; /* Kolor wypełnienia: czerwony */
+    -fx-background-color: #FF0000;
+}
+.red-square:hover {
+    -fx-background-color: #FF6666; /* Inny kolor tła po najechaniu myszką */
+}
+.less-red-square {
+    -fx-fill: #FFA500; /* Kolor wypełnienia: czerwony */
+    -fx-background-color: #FFA500;
+}
+.less-red-square:hover {
+    -fx-background-color:  #FFD27F; /* Inny kolor tła po najechaniu myszką */
+}
+.blue-square {
+    -fx-fill: navy; /* Kolor wypełnienia: czerwony */
+    -fx-background-color: navy;
+}
+.green-square {
+    -fx-fill: #39FF14; /* Kolor wypełnienia: czerwony */
+    -fx-background-color: #39FF14;
+}
+.green-square:hover {
+    -fx-background-color: #A7FF6E; /* Inny kolor tła po najechaniu myszką */
+}
+.transparent {
+    -fx-fill: transparent; /* Kolor wypełnienia: czerwony */
+}
+.image-view {
+    -fx-border-color: black;
+    -fx-border-width: 2;
+    -fx-padding: 60;
+}
+
+/* Podświetl obraz po najechaniu myszą */
+.image-view:hover {
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.6), 10, 0, 0, 0);
 }

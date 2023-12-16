@@ -15,7 +15,8 @@
             fx:id="borderPane">
 
     <top>
-        <Label text="BattleShips" alignment="CENTER" BorderPane.alignment="CENTER" fx:id="title">
+        <Label text="BattleShips" alignment="CENTER" BorderPane.alignment="CENTER" fx:id="title"
+            styleClass="title">
             <font><Font name="Times New Roman bold" size="50"/></font>
             <padding>
                 <Insets bottom="25"/>
@@ -44,6 +45,7 @@
                 <Insets bottom="20" top="20"/>
             </padding>
             <Button styleClass="menuButton" text="Powrót" onAction="#backToMenu"/>
+            <Button styleClass="menuButton" text="Start" onAction="#startGame"/>
             <Button styleClass="menuButton" text="Reset" onAction="#reset"/>
         </HBox>
 
