@@ -1,0 +1,60 @@
+.rectangle {
+    -fx-fill: #663500; /* Białe tło przycisku */
+    -fx-stroke: black;
+    -fx-stroke-width: 3;
+}
+.circle {
+    -fx-fill: #4d2800;
+    -fx-stroke-width: 2;
+    -fx-stroke: black;
+}
+.circle_frame {
+    -fx-stroke-width: 2;
+    -fx-stroke: black;
+}
+.rectangle_special {
+    -fx-fill: #804200; /* Białe tło przycisku */
+    -fx-stroke: black;
+    -fx-stroke-width: 3;
+}
+.circle_special {
+    -fx-fill: #663500;
+    -fx-stroke-width: 2;
+    -fx-stroke: black;
+}
+.background {
+    -fx-background-color: #ffce99;
+    -fx-border-color: #804200; /* Kolor ramki (zielony) */
+    -fx-border-width: 10px; /* Grubość ramki */
+    -fx-padding: 10px; /* Odstęp wewnątrz BorderPane */
+}
+.menuButton {
+    -fx-background-color: #663500; /* Kolor tła */
+    -fx-text-fill: #ffce99; /* Kolor tekstu */
+    -fx-font-size: 18px; /* Rozmiar czcionki */
+    -fx-font-weight: bold; /* Pogrubienie tekstu */
+    -fx-padding: 10px 20px; /* Wewnętrzny odstęp */
+    -fx-border-color: #4d2800; /* Kolor obramowania */
+    -fx-border-width: 2px; /* Grubość obramowania */
+    -fx-border-radius: 5px; /* Zaokrąglenie narożników */
+    -fx-max-height: 30px;
+    -fx-max-width: 140px;
+}
+
+.menuButton:hover {
+    -fx-background-color:#4d2800; /* Kolor tła po najechaniu myszą */
+}
+
+.menuButton:pressed {
+    -fx-background-color: #663500; /* Kolor tła po naciśnięciu */
+}
+.title {
+    -fx-text-fill: #663500;
+}
+.red {
+    -fx-text-fill: #FF0000; /* Czarny kolor tekstu */
+    /*-fx-border-color: #FF0000; /* Czarny kolor tekstu */
+}
+.green {
+    -fx-text-fill: #00cc00; /* Czarny kolor tekstu */
+}

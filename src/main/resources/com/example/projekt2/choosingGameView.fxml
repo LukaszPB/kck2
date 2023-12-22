@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.example.projekt2.Controllers.ChoosingGameView"
+            fx:controller="com.example.projekt2.Controllers.ChoosingGameController"
             stylesheets="@styleBattleShip.css" styleClass="background" prefHeight="400.0" prefWidth="600.0" >
     <top>
         <Label text="Select Game" alignment="CENTER" BorderPane.alignment="CENTER" styleClass="title">

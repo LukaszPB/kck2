@@ -10,7 +10,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class ChoosingGameView {
+public class ChoosingGameController {
     @FXML
     private ImageView imageView1;
     @FXML
@@ -30,7 +30,7 @@ public class ChoosingGameView {
             stage.setScene(scene);
         });
         imageView2.setOnMousePressed((event)->{
-            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("battleShipView.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("mastermindView.fxml"));
             Scene scene = null;
             try {
                 scene = new Scene(fxmlLoader.load(), StageProperties.STAGE_WIDTH, StageProperties.STAGE_HEIGHT);
