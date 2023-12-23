@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <BorderPane  xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.example.projekt2.Controllers.MenuController"
-            stylesheets="@styleBattleShip.css" styleClass="background">
+            stylesheets="@styleBattleShip.css" styleClass="background" fx:id="borderPane">
     <Label fx:id="menuTitle"/>
     <top>
         <Label text="Gaming Center" alignment="CENTER" BorderPane.alignment="CENTER" styleClass="title">

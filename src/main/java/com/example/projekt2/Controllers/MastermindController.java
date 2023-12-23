@@ -53,8 +53,8 @@ public class MastermindController {
         setBoard();
     }
     private void setBoard() {
-        for(int i=0;i<11;i++) {
-            for(int j=0;j<4;j++) {
+        for(int i=0;i<4;i++) {
+            for(int j=0;j<11;j++) {
                 Rectangle rectangle = new Rectangle(StageProperties.RECTANGLE_SIZE,StageProperties.RECTANGLE_SIZE);
                 Circle circle = new Circle(StageProperties.RECTANGLE_SIZE/3);
 

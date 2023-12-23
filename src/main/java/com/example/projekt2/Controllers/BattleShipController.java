@@ -13,10 +13,11 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
@@ -38,6 +39,12 @@ public class BattleShipController{
     private Human human;
     private boolean gameEnded;
     private boolean newGame;
+    private final BorderStroke redFrame = new BorderStroke(
+            Color.web("#FF0000"),
+            BorderStrokeStyle.SOLID,
+            CornerRadii.EMPTY,
+            new BorderWidths(10) // Grubość ramki
+    );
     @FXML
     private void initialize() {
         ArrayList<Ship> prototype = new ArrayList<Ship>(Arrays.asList(new FourPointShip(),
@@ -56,6 +63,13 @@ public class BattleShipController{
         setShips();
         gameEnded = true;
         newGame = true;
+
+        Image backgroundImage = new Image("file:src/main/resources/com/example/projekt2/image/water.jpg");
+        String backgroundStyle = "-fx-background-image: url('" + backgroundImage.getUrl() + "'); " +
+                "-fx-background-size: cover;";
+
+        borderPane.setStyle(backgroundStyle);
+
     }
     private void setBoard() {
         for(int i=1;i<=10;i++) {
@@ -212,7 +226,6 @@ public class BattleShipController{
             }
             if(computer.wasDefeated()) {
                 System.out.println("Wygrałeś");
-                borderPane.getStyleClass().add("green_frame");
                 title.getStyleClass().add("green");
                 gameEnded = true;
             }

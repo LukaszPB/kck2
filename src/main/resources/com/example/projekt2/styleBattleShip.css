@@ -62,7 +62,7 @@
 .background {
     -fx-background-color: #2196F3;
     -fx-border-color: #1a237e; /* Kolor ramki (zielony) */
-    -fx-border-width: 5px; /* Grubość ramki */
+    -fx-border-width: 10px; /* Grubość ramki */
     -fx-padding: 10px; /* Odstęp wewnątrz BorderPane */
 }
 .green_frame {
