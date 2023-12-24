@@ -7,6 +7,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -51,10 +54,15 @@ public class MastermindController {
     @FXML
     private void initialize() {
         setBoard();
+        Image backgroundImage = new Image("file:src/main/resources/com/example/projekt2/image/desk.jpg");
+        String backgroundStyle = "-fx-background-image: url('" + backgroundImage.getUrl() + "'); " +
+                "-fx-background-size: cover;";
+
+        borderPane.setStyle(backgroundStyle);
     }
     private void setBoard() {
-        for(int i=0;i<4;i++) {
-            for(int j=0;j<11;j++) {
+        for(int i=0;i<11;i++) {
+            for(int j=0;j<4;j++) {
                 Rectangle rectangle = new Rectangle(StageProperties.RECTANGLE_SIZE,StageProperties.RECTANGLE_SIZE);
                 Circle circle = new Circle(StageProperties.RECTANGLE_SIZE/3);
 
@@ -157,6 +165,12 @@ public class MastermindController {
                 double newY = event.getSceneY() - (double) c.getProperties().get("startY");
 
                 // Ustaw nowe współrzędne kółka
+                if(c.getLayoutY()>=StageProperties.RECTANGLE_SIZE*7+20 ||
+                        c.getLayoutX()>= StageProperties.STAGE_WIDTH-60) {
+                    circle.fireEvent(new MouseEvent(MouseEvent.MOUSE_RELEASED, 0, 0, 0,
+                            0, MouseButton.PRIMARY, 1, true, true, true, true,
+                            true, true, true, true, true, true, null));
+                }
                 c.setLayoutX(newX);
                 c.setLayoutY(newY);
             });

@@ -13,6 +13,7 @@
 }
 .title {
     -fx-text-fill: #1a237e;
+    -fx-font-family: "Impact";
 }
 .label_button {
     -fx-background-color: transparent; /* Białe tło przycisku */
@@ -31,7 +32,7 @@
     /*-fx-border-color: #FF0000; /* Czarny kolor tekstu */
 }
 .green {
-    -fx-text-fill: #39FF14; /* Czarny kolor tekstu */
+    -fx-text-fill: #00cc00; /* Czarny kolor tekstu */
 }
 
 /* Zmiana koloru przycisku po najechaniu myszką */
@@ -66,13 +67,13 @@
     -fx-padding: 10px; /* Odstęp wewnątrz BorderPane */
 }
 .green_frame {
-    -fx-border-color: #39FF14; /* Kolor ramki (zielony) */
-    -fx-border-width: 5px; /* Grubość ramki */
+    -fx-border-color: #00cc00; /* Kolor ramki (zielony) */
+    -fx-border-width: 10px; /* Grubość ramki */
     -fx-padding: 10px; /* Odstęp wewnątrz BorderPane */
 }
 .red_frame {
     -fx-border-color: #FF0000; /* Kolor ramki (zielony) */
-    -fx-border-width: 5px; /* Grubość ramki */
+    -fx-border-width: 10px; /* Grubość ramki */
     -fx-padding: 10px; /* Odstęp wewnątrz BorderPane */
 }
 .red-square {
@@ -94,8 +95,8 @@
     -fx-background-color: navy;
 }
 .green-square {
-    -fx-fill: #39FF14; /* Kolor wypełnienia: czerwony */
-    -fx-background-color: #39FF14;
+    -fx-fill: #00cc00; /* Kolor wypełnienia: czerwony */
+    -fx-background-color: #00cc00;
 }
 .green-square:hover {
     -fx-background-color: #A7FF6E; /* Inny kolor tła po najechaniu myszką */

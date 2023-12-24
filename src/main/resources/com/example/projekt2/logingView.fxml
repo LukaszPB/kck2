@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.example.projekt2.Controllers.LogingController"
+            stylesheets="@styleMenu.css" styleClass="background" fx:id="borderPane">
+    <Label fx:id="menuTitle"/>
+    <top>
+        <Label text="Login" alignment="CENTER" BorderPane.alignment="CENTER" styleClass="title">
+            <font><Font name="Times New Roman bold" size="50"/></font>
+            <padding>
+                <Insets top="25"/>
+            </padding>
+        </Label>
+    </top>
+
+    <bottom>
+        <HBox alignment="CENTER" BorderPane.alignment="CENTER" spacing="20">
+            <Button styleClass="menuButton" text="Login" onAction="#login"/>
+            <Button styleClass="menuButton" text="Cancel" onAction="#back"/>
+            <padding>
+                <Insets bottom="30"/>
+            </padding>
+        </HBox>
+    </bottom>
+
+</BorderPane>

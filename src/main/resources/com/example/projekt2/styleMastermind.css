@@ -50,6 +50,7 @@
 }
 .title {
     -fx-text-fill: #663500;
+    -fx-font-family: "Impact";
 }
 .red {
     -fx-text-fill: #FF0000; /* Czarny kolor tekstu */

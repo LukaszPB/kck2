@@ -7,9 +7,8 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.layout.BorderPane?>
 <BorderPane  xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.example.projekt2.Controllers.MenuController"
-            stylesheets="@styleMenu.css" styleClass="background" fx:id="borderPane">
-    <Label fx:id="menuTitle"/>
+             fx:controller="com.example.projekt2.Controllers.LogingController"
+             stylesheets="@styleMenu.css" styleClass="background" fx:id="borderPane">
     <top>
         <Label text="Gaming Center" alignment="CENTER" BorderPane.alignment="CENTER" styleClass="title">
             <font><Font name="Times New Roman bold" size="50"/></font>
@@ -21,10 +20,8 @@
 
     <center>
         <VBox alignment="CENTER" BorderPane.alignment="CENTER" spacing="20">
-            <Button styleClass="menuButton" text="New game" onAction="#newGame"/>
-            <Button styleClass="menuButton" text="Options"/>
-            <Button styleClass="menuButton" text="Logout" onAction="#logout"/>
-            <Button styleClass="menuButton" text="Quit" onAction="#quit"/>
+            <Button styleClass="menuButton" text="Login" onAction="#toLoging"/>
+            <Button styleClass="menuButton" text="Registration" onAction="#toRegistration"/>
         </VBox>
     </center>
 

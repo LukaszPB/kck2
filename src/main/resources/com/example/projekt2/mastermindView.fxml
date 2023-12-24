@@ -5,7 +5,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 <BorderPane fx:id="borderPane" styleClass="background" stylesheets="@styleMastermind.css"
             xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1"
@@ -17,21 +17,21 @@
         </Label>
     </top>
 
-    <left>
+    <center>
         <AnchorPane fx:id="anchorPane">
         </AnchorPane>
-    </left>
+    </center>
 
-    <right>
-        <VBox alignment="CENTER" spacing="20">
+    <bottom>
+        <HBox alignment="CENTER" spacing="20">
             <padding>
                 <Insets bottom="20" top="20" />
             </padding>
             <Button onAction="#backToMenu" styleClass="menuButton" text="Back" />
             <Button onAction="#check" styleClass="menuButton" text="Check" />
             <Button onAction="#reset" styleClass="menuButton" text="Reset" />
-        </VBox>
+        </HBox>
 
-    </right>
+    </bottom>
 
 </BorderPane>

@@ -1,48 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.layout.VBox?>
-<BorderPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.example.projekt2.Controllers.ChoosingGameController"
-            stylesheets="@styleBattleShip.css" styleClass="background" prefHeight="400.0" prefWidth="600.0" >
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane fx:id="borderPane" prefHeight="400.0" prefWidth="600.0" styleClass="background" stylesheets="@styleMenu.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.projekt2.Controllers.ChoosingGameController">
     <top>
-        <Label text="Select Game" alignment="CENTER" BorderPane.alignment="CENTER" styleClass="title">
-            <font><Font name="Times New Roman bold" size="50"/></font>
+        <Label alignment="CENTER" styleClass="title" text="Select Game" BorderPane.alignment="CENTER">
+            <font><Font name="Times New Roman bold" size="50" /></font>
             <padding>
-                <Insets top="25" bottom="120"/>
+                <Insets top="25" />
             </padding>
         </Label>
     </top>
-    <left>
-        <VBox>
-            <padding>
-                <Insets left="30" right="30"/>
-            </padding>
-            <ImageView fx:id="imageView1" fitHeight="200.0" fitWidth="300.0" pickOnBounds="true"
-                       preserveRatio="true" styleClass="image-view">
+
+    <center>
+        <HBox spacing="40" alignment="CENTER">
+            <ImageView fx:id="imageView1" fitHeight="200" fitWidth="300.0" pickOnBounds="true" preserveRatio="true" styleClass="image-view">
                 <image>
-                    <Image url="@image/battleShips.jpg"/>
+                    <Image url="@image/battleShips.jpg" />
                 </image>
             </ImageView>
-        </VBox>
-    </left>
-    <right>
-        <VBox>
-            <padding>
-                <Insets left="30" right="30"/>
-            </padding>
-            <ImageView fx:id="imageView2" fitHeight="200.0" fitWidth="300.0" pickOnBounds="true"
-                       preserveRatio="true" styleClass="image-view">
+
+            <ImageView fx:id="imageView2" fitHeight="200" fitWidth="300" pickOnBounds="true" preserveRatio="true" styleClass="image-view">
                 <image>
-                    <Image url="@image/mastermind.jpg"/>
+                    <Image url="@image/mastermind.jpg" />
                 </image>
             </ImageView>
+        </HBox>
+    </center>
+
+    <bottom>
+        <VBox alignment="CENTER">
+            <Button onAction="#backToMenu" text="Back" styleClass="menuButton"/>
+            <padding>
+                <Insets bottom="30"/>
+            </padding>
         </VBox>
-    </right>
+    </bottom>
+
+
 </BorderPane>
