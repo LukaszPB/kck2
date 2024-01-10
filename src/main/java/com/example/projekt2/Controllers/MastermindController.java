@@ -16,11 +16,9 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class MastermindController {
     @FXML
@@ -32,12 +30,7 @@ public class MastermindController {
     private boolean gameEnded = false;
     private final Random random = new Random();
     private final Color blankCircleColor = Color.web("#4d2800");
-    private final Color[] answer = {
-            StageProperties.COLORS[random.nextInt(8)],
-            StageProperties.COLORS[random.nextInt(8)],
-            StageProperties.COLORS[random.nextInt(8)],
-            StageProperties.COLORS[random.nextInt(8)]
-    };
+    private Color[] answer;
     private final BorderStroke redFrame = new BorderStroke(
             Color.web("#FF0000"),
             BorderStrokeStyle.SOLID,
@@ -51,6 +44,7 @@ public class MastermindController {
             new BorderWidths(10) // Grubość ramki
     );
     private int round;
+    private boolean allowDuplicates;
     @FXML
     private void initialize() {
         setBoard();
@@ -59,6 +53,39 @@ public class MastermindController {
                 "-fx-background-size: cover;";
 
         borderPane.setStyle(backgroundStyle);
+
+        try {
+            Scanner scanner = new Scanner(new File(StageProperties.SETTINGS_FILE_PATH));
+
+            scanner.nextLine();
+            scanner.nextLine();
+            allowDuplicates = scanner.nextLine().equals("yes");
+            scanner.close();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        if(allowDuplicates) {
+            answer = new Color[]{
+                    StageProperties.COLORS[random.nextInt(8)],
+                    StageProperties.COLORS[random.nextInt(8)],
+                    StageProperties.COLORS[random.nextInt(8)],
+                    StageProperties.COLORS[random.nextInt(8)]
+            };
+        }
+        else {
+            answer = new Color[4];
+            for (int i=0;i<4;i++) {
+                Color color = StageProperties.COLORS[random.nextInt(8)];
+                if(Arrays.stream(answer).noneMatch(x->x == color)) {
+                   answer[i] = color;
+                }
+                else {
+                    i--;
+                }
+            }
+        }
     }
     private void setBoard() {
         for(int i=0;i<11;i++) {
@@ -240,7 +267,6 @@ public class MastermindController {
         if(gameEnded) {
             return;
         }
-
         var circles = getAllCircles();
         for(Circle c : circles) {
             if(c.getFill().equals(blankCircleColor)) {return; }

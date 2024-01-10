@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.example.projekt2.Controllers.OptionsController"
+            prefHeight="400.0" prefWidth="600.0" fx:id="borderPane" stylesheets="@styleMenu.css">
+
+    <top>
+        <Label text="Settings" alignment="CENTER" BorderPane.alignment="CENTER" styleClass="title">
+            <font><Font name="Times New Roman bold" size="50"/></font>
+            <padding>
+                <Insets top="25"/>
+            </padding>
+        </Label>
+    </top>
+
+    <center>
+        <VBox alignment="CENTER" BorderPane.alignment="CENTER" spacing="30">
+            <VBox alignment="CENTER" BorderPane.alignment="CENTER">
+                <Label text="fleet type:" alignment="CENTER" BorderPane.alignment="CENTER" styleClass="title">
+                    <font><Font name="Times New Roman bold" size="25"/></font>
+                    <padding>
+                        <Insets bottom="10"/>
+                    </padding>
+                </Label>
+                <HBox alignment="CENTER" BorderPane.alignment="CENTER" spacing="20">
+                    <Button styleClass="menuButton" text="Polish" onAction="#polish" fx:id="polishButton"/>
+                    <Button styleClass="menuButton" text="English" onAction="#english" fx:id="englishButton"/>
+                </HBox>
+            </VBox>
+
+            <VBox alignment="CENTER" BorderPane.alignment="CENTER">
+                <Label text="difficulty:" alignment="CENTER" BorderPane.alignment="CENTER" styleClass="title">
+                    <font><Font name="Times New Roman bold" size="25"/></font>
+                    <padding>
+                        <Insets bottom="10"/>
+                    </padding>
+                </Label>
+                <HBox alignment="CENTER" BorderPane.alignment="CENTER" spacing="20">
+                    <Button styleClass="menuButton" text="Easy" onAction="#easy" fx:id="easyButton"/>
+                    <Button styleClass="menuButton" text="Normal" onAction="#normal" fx:id="normalButton"/>
+                    <Button styleClass="menuButton" text="Hard" onAction="#hard" fx:id="hardButton"/>
+                </HBox>
+            </VBox>
+
+            <VBox alignment="CENTER" BorderPane.alignment="CENTER">
+                <Label text="allow duplicates:" alignment="CENTER" BorderPane.alignment="CENTER" styleClass="title">
+                    <font><Font name="Times New Roman bold" size="25"/></font>
+                    <padding>
+                        <Insets bottom="10"/>
+                    </padding>
+                </Label>
+                <HBox alignment="CENTER" BorderPane.alignment="CENTER" spacing="20">
+                    <Button styleClass="menuButton" text="Yes" onAction="#yes" fx:id="yesButton"/>
+                    <Button styleClass="menuButton" text="No" onAction="#no" fx:id="noButton"/>
+                </HBox>
+            </VBox>
+        </VBox>
+    </center>
+
+    <bottom>
+        <HBox alignment="CENTER" BorderPane.alignment="CENTER" spacing="20">
+            <Button styleClass="menuButton" text="Save" onAction="#save"/>
+            <Button styleClass="menuButton" text="Back" onAction="#backToMenu"/>
+            <padding>
+                <Insets bottom="30"/>
+            </padding>
+        </HBox>
+    </bottom>
+
+</BorderPane>

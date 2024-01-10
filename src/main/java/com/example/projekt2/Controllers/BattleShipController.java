@@ -21,10 +21,13 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
+import java.util.Scanner;
 
 public class BattleShipController{
     @FXML
@@ -39,12 +42,36 @@ public class BattleShipController{
     private Human human;
     private boolean gameEnded;
     private boolean newGame;
+    private int difficulty;
     @FXML
     private void initialize() {
-        ArrayList<Ship> prototype = new ArrayList<Ship>(Arrays.asList(new FourPointShip(),
-                new ThreePointShip(), new ThreePointShip(), new TwoPointShip(), new TwoPointShip(),
-                new TwoPointShip(), new OnePointShip(), new OnePointShip(), new OnePointShip(),
-                new OnePointShip()));
+        String fleetType;
+        try {
+            Scanner scanner = new Scanner(new File(StageProperties.SETTINGS_FILE_PATH));
+
+            fleetType = scanner.nextLine();
+            switch (scanner.nextLine()) {
+                case "easy" -> difficulty = 0;
+                case "normal" -> difficulty = 1;
+                case "hard" -> difficulty = 2;
+            }
+            scanner.close();
+        }
+        catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        ArrayList<Ship> prototype;
+        if(fleetType.equals("polish")) {
+            prototype = new ArrayList<Ship>(Arrays.asList(new FourPointShip(),
+                    new ThreePointShip(), new ThreePointShip(), new TwoPointShip(), new TwoPointShip(),
+                    new TwoPointShip(), new OnePointShip(), new OnePointShip(), new OnePointShip(),
+                    new OnePointShip()));
+        }
+        else {
+            prototype = new ArrayList<Ship>(Arrays.asList(new FivePointShip(),
+                    new FourPointShip(), new ThreePointShip(), new ThreePointShip(), new TwoPointShip()));
+        }
 
         computer = new Computer(prototype);
         human = new Human(prototype);
@@ -215,7 +242,7 @@ public class BattleShipController{
             else {
                 clickedButton.setText(" ");
                 clickedButton.getStyleClass().add("green-square");
-                computerMove(2);
+                computerMove();
             }
             if(computer.wasDefeated()) {
                 System.out.println("Wygrałeś");
@@ -233,7 +260,7 @@ public class BattleShipController{
         }
         return null;
     }
-    private void computerMove(int difficulty) {
+    private void computerMove() {
         while(true) {
             Point p = computer.shoot(difficulty);
             Button button = getButton(anchorPaneRight,p.getX()+1,p.getY()+1);
@@ -241,7 +268,9 @@ public class BattleShipController{
             }
             else if(human.getHit(p)) {
                 if(human.getShip(p).getDestroyed()) {
-                    computer.acknowledgeShipDestruction(human.getShip(p));
+                    if(difficulty == 2) {
+                        computer.acknowledgeShipDestruction(human.getShip(p));
+                    }
                     computer.setTarget(null);
                 }
                 else {

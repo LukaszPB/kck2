@@ -12,11 +12,15 @@
     -fx-max-height: 30px;
     -fx-max-width: 140px;
 }
-
+.selectedButton {
+    -fx-background-color: #404040; /* Kolor tła */
+}
 .menuButton:hover {
     -fx-background-color:#262626; /* Kolor tła po najechaniu myszą */
 }
-
+.selectedButton:hover {
+    -fx-background-color:#4d4d4d; /* Kolor tła po najechaniu myszą */
+}
 .menuButton:pressed {
     -fx-background-color: #404040; /* Kolor tła po naciśnięciu */
 }

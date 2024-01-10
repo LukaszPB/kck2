@@ -2,8 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 <BorderPane xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.example.projekt2.Controllers.LogingController"
@@ -17,6 +16,34 @@
             </padding>
         </Label>
     </top>
+
+    <center>
+        <VBox alignment="CENTER" BorderPane.alignment="CENTER" spacing="30">
+            <VBox alignment="CENTER" BorderPane.alignment="CENTER">
+                <Label text="login:" alignment="CENTER" BorderPane.alignment="CENTER" styleClass="title">
+                    <font><Font name="Times New Roman bold" size="25"/></font>
+                    <padding>
+                        <Insets bottom="10"/>
+                    </padding>
+                </Label>
+                <TextField maxWidth="200" fx:id="login"/>
+            </VBox>
+
+            <VBox alignment="CENTER" BorderPane.alignment="CENTER">
+                <Label text="password:" alignment="CENTER" BorderPane.alignment="CENTER" styleClass="title">
+                    <font><Font name="Times New Roman bold" size="25"/></font>
+                    <padding>
+                        <Insets bottom="10"/>
+                    </padding>
+                </Label>
+                <TextField maxWidth="200" fx:id="password"/>
+            </VBox>
+
+            <Label fx:id="message" alignment="CENTER" BorderPane.alignment="CENTER" styleClass="title">
+                <font><Font name="Times New Roman bold" size="25"/></font>
+            </Label>
+        </VBox>
+    </center>
 
     <bottom>
         <HBox alignment="CENTER" BorderPane.alignment="CENTER" spacing="20">
