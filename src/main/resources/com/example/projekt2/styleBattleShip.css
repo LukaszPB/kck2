@@ -66,6 +66,11 @@
     -fx-border-width: 10px; /* Grubość ramki */
     -fx-padding: 10px; /* Odstęp wewnątrz BorderPane */
 }
+.message {
+    -fx-text-fill: red;
+    -fx-font-family: "Times New Roman bold";
+    -fx-font-size: 20;
+}
 .green_frame {
     -fx-border-color: #00cc00; /* Kolor ramki (zielony) */
     -fx-border-width: 10px; /* Grubość ramki */

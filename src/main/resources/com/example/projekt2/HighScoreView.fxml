@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.layout.VBox?>
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.example.projekt2.Controllers.HighScoreController"
+            stylesheets="@styleMenu.css" styleClass="background" fx:id="borderPane">
+    <Label fx:id="menuTitle"/>
+    <top>
+        <Label text="High score" alignment="CENTER" BorderPane.alignment="CENTER" styleClass="title">
+            <font><Font name="Times New Roman bold" size="50"/></font>
+            <padding>
+                <Insets top="20" bottom="20"/>
+            </padding>
+        </Label>
+    </top>
+
+    <center>
+        <HBox alignment="CENTER" BorderPane.alignment="CENTER" spacing="30">
+            <Button styleClass="arrow" onAction="#left" fx:id="left"/>
+            <VBox alignment="CENTER" BorderPane.alignment="CENTER" spacing="20" fx:id="vBox" styleClass="back">
+                <Label fx:id="label" alignment="CENTER" BorderPane.alignment="CENTER" styleClass="title">
+                    <font><Font name="Times New Roman bold" size="35"/></font>
+                </Label>
+                <padding>
+                    <Insets top="10" bottom="10" left="10" right="10"/>
+                </padding>
+            </VBox>
+            <Button styleClass="arrow" onAction="#right" fx:id="right"/>
+        </HBox>
+    </center>
+
+    <bottom>
+        <HBox alignment="CENTER" BorderPane.alignment="CENTER" spacing="20">
+            <Button styleClass="menuButton" text="History" onAction="#history"/>
+            <Button styleClass="menuButton" text="Back" onAction="#back"/>
+            <padding>
+                <Insets top="20" bottom="20"/>
+            </padding>
+        </HBox>
+    </bottom>
+
+</BorderPane>

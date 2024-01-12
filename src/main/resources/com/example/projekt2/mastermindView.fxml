@@ -7,19 +7,22 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.layout.VBox?>
 <BorderPane fx:id="borderPane" styleClass="background" stylesheets="@styleMastermind.css"
             xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.example.projekt2.Controllers.MastermindController">
     <top>
-        <Label fx:id="title" alignment="CENTER" styleClass="title" text="Mastermind" BorderPane.alignment="CENTER">
-            <font><Font name="Times New Roman bold" size="50" /></font>
+        <VBox alignment="CENTER" spacing="5">
+            <Label fx:id="title" alignment="CENTER" styleClass="title" text="Mastermind" BorderPane.alignment="CENTER">
+                <font><Font name="Times New Roman bold" size="50" /></font>
+            </Label>
+            <Label fx:id="message" styleClass="message"/>
+        </VBox>
 
-        </Label>
     </top>
 
     <center>
-        <AnchorPane fx:id="anchorPane">
-        </AnchorPane>
+        <AnchorPane fx:id="anchorPane"/>
     </center>
 
     <bottom>

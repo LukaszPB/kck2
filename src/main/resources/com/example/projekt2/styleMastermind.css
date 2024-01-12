@@ -48,6 +48,11 @@
 .menuButton:pressed {
     -fx-background-color: #663500; /* Kolor tła po naciśnięciu */
 }
+.message {
+    -fx-text-fill: red;
+    -fx-font-family: "Times New Roman bold";
+    -fx-font-size: 20;
+}
 .title {
     -fx-text-fill: #663500;
     -fx-font-family: "Impact";
@@ -58,4 +63,7 @@
 }
 .green {
     -fx-text-fill: #00cc00; /* Czarny kolor tekstu */
+}
+.size {
+    -fx-min-height: 340;
 }

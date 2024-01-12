@@ -2,6 +2,21 @@
     -fx-text-fill: white;
     -fx-font-family: "Impact";
 }
+.record {
+    -fx-text-fill: black;
+    -fx-font-family: "Times New Roman bold";
+    -fx-font-size: 30;
+    -fx-background-color: white;
+    -fx-min-width: 490;
+}
+.message {
+    -fx-text-fill: red;
+    -fx-font-family: "Times New Roman bold";
+    -fx-font-size: 20;
+}
+.back {
+    -fx-background-color: #404040;
+}
 .menuButton {
     -fx-background-color: black; /* Kolor tła */
     -fx-text-fill: white; /* Kolor tekstu */
@@ -31,4 +46,22 @@
 }
 .rectangle {
     -fx-fill: white;
+}
+.arrow {
+    -fx-background-color: black; /* Kolor tła */
+    -fx-min-width: 50;
+    -fx-min-height: 50;
+}
+.arrow:hover {
+}
+.arrow:hover {
+}
+.gold {
+    -fx-background-color: gold;
+}
+.silver {
+    -fx-background-color: silver;
+}
+.bronze {
+    -fx-background-color: #cc6600;
 }

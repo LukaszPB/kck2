@@ -30,10 +30,13 @@ public class MastermindController {
     private BorderPane borderPane;
     @FXML
     private Label title;
+    @FXML
+    private Label message;
     private boolean gameEnded = false;
     private final Random random = new Random();
     private final Color blankCircleColor = Color.web("#4d2800");
     private Color[] answer;
+    private int ile = 0,ileM = 0;
     private final BorderStroke redFrame = new BorderStroke(
             Color.web("#FF0000"),
             BorderStrokeStyle.SOLID,
@@ -90,6 +93,41 @@ public class MastermindController {
                 }
             }
         }
+        ArrayList<String[]> list = new ArrayList<>();
+        try {
+            Scanner scanner = new Scanner(new File(StageProperties.GAME_REGISTER_FILE_PATH));
+            while (scanner.hasNext()) {
+                String[] line = scanner.nextLine().split(";");
+                if(line[0].equals(User.getInstance().getUsername())) {
+                    list.add(line);
+                }
+            }
+            scanner.close();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+        String[] date1 = new Date().toString().split(" ");
+
+        for(String[] s : list) {
+            String[] date2 = s[5].split(" ");
+            if(date1[1].equals(date2[1]) && date1[2].equals(date2[2]) && date1[5].equals(date2[5])) {
+                ile++;
+            }
+            if(!s[1].equals("Mastermind")) {}
+            else if(s[3].equals("win")) {
+                ileM++;
+            }
+            else {
+                ileM=0;
+            }
+        }
+        if(ile > 10) {
+            message.setText("you've already played 10 games, that's enough for today");
+        }
+        else if(ileM >= 5) {
+            message.setText("Congratulations, " + ileM + " wins in a row!");
+        }
     }
     private void setBoard() {
         for(int i=0;i<11;i++) {
@@ -117,6 +155,7 @@ public class MastermindController {
                 anchorPane.getChildren().addAll(rectangle,circle);
             }
         }
+        anchorPane.getStyleClass().add("size");
         setHints();
         setColors();
     }
@@ -196,7 +235,7 @@ public class MastermindController {
                 double newY = event.getSceneY() - (double) c.getProperties().get("startY");
 
                 // Ustaw nowe współrzędne kółka
-                if(c.getLayoutY()>=StageProperties.RECTANGLE_SIZE*7+20 ||
+                if(c.getLayoutY()>=StageProperties.RECTANGLE_SIZE*7+10 ||
                         c.getLayoutX()>= StageProperties.STAGE_WIDTH-60) {
                     circle.fireEvent(new MouseEvent(MouseEvent.MOUSE_RELEASED, 0, 0, 0,
                             0, MouseButton.PRIMARY, 1, true, true, true, true,
@@ -268,10 +307,11 @@ public class MastermindController {
     }
     @FXML
     private void check() {
-        if(gameEnded) {
+        if(gameEnded || ile>=10) {
             return;
         }
         if(round == 0) {
+            ile++;
             time = (int) System.currentTimeMillis();
         }
         var circles = getAllCircles();
@@ -291,6 +331,10 @@ public class MastermindController {
         }
 
         if(hint == 4) {
+            ileM++;
+            if(ileM >= 5) {
+                message.setText("Congratulations, " + ileM + " wins in a row!");
+            }
             showAnswers();
             registerGame("win");
             System.out.println("Wygrałeś");
@@ -309,6 +353,7 @@ public class MastermindController {
             }
         }
         if(round == 9) {
+            ileM = 0;
             showAnswers();
             registerGame("lost");
             System.out.println("Przegrałeś");

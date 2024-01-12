@@ -22,6 +22,7 @@
         <VBox alignment="CENTER" BorderPane.alignment="CENTER" spacing="20">
             <Button styleClass="menuButton" text="Login" onAction="#toLoging"/>
             <Button styleClass="menuButton" text="Registration" onAction="#toRegistration"/>
+            <Button styleClass="menuButton" text="Quit" onAction="#quit"/>
         </VBox>
     </center>
 

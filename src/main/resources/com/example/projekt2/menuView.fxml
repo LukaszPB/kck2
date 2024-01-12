@@ -23,6 +23,7 @@
         <VBox alignment="CENTER" BorderPane.alignment="CENTER" spacing="20">
             <Button styleClass="menuButton" text="New game" onAction="#newGame"/>
             <Button styleClass="menuButton" text="Settings" onAction="#options"/>
+            <Button styleClass="menuButton" text="History" onAction="#history"/>
             <Button styleClass="menuButton" text="Logout" onAction="#logout"/>
             <Button styleClass="menuButton" text="Quit" onAction="#quit"/>
         </VBox>

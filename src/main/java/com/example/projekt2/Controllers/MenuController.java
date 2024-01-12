@@ -54,4 +54,11 @@ public class MenuController {
         stage = (Stage) menuTitle.getScene().getWindow();
         stage.setScene(scene);
     }
+    @FXML
+    protected void history() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("HistoryView.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), StageProperties.STAGE_WIDTH, StageProperties.STAGE_HEIGHT);
+        stage = (Stage) menuTitle.getScene().getWindow();
+        stage.setScene(scene);
+    }
 }

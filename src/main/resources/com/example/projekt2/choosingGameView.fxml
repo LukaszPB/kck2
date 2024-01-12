@@ -12,25 +12,28 @@
         <Label alignment="CENTER" styleClass="title" text="Select Game" BorderPane.alignment="CENTER">
             <font><Font name="Times New Roman bold" size="50" /></font>
             <padding>
-                <Insets top="25" />
+                <Insets top="25" bottom="0" />
             </padding>
         </Label>
     </top>
 
     <center>
-        <HBox spacing="40" alignment="CENTER">
-            <ImageView fx:id="imageView1" fitHeight="200" fitWidth="300.0" pickOnBounds="true" preserveRatio="true" styleClass="image-view">
-                <image>
-                    <Image url="@image/battleShips.jpg" />
-                </image>
-            </ImageView>
+        <VBox spacing="40" alignment="CENTER">
+            <Label styleClass="message" fx:id="massage"/>
+            <HBox spacing="40" alignment="CENTER">
+                <ImageView fx:id="imageView1" fitHeight="200" fitWidth="300.0" pickOnBounds="true" preserveRatio="true" styleClass="image-view">
+                    <image>
+                        <Image url="@image/battleShips.jpg" />
+                    </image>
+                </ImageView>
 
-            <ImageView fx:id="imageView2" fitHeight="200" fitWidth="300" pickOnBounds="true" preserveRatio="true" styleClass="image-view">
-                <image>
-                    <Image url="@image/mastermind.jpg" />
-                </image>
-            </ImageView>
-        </HBox>
+                <ImageView fx:id="imageView2" fitHeight="200" fitWidth="300" pickOnBounds="true" preserveRatio="true" styleClass="image-view">
+                    <image>
+                        <Image url="@image/mastermind.jpg" />
+                    </image>
+                </ImageView>
+            </HBox>
+        </VBox>
     </center>
 
     <bottom>

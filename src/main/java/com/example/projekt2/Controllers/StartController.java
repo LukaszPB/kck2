@@ -36,4 +36,9 @@ public class StartController {
         Stage stage = (Stage) borderPane.getScene().getWindow();
         stage.setScene(scene);
     }
+    @FXML
+    private void quit() throws IOException {
+        Stage stage = (Stage) borderPane.getScene().getWindow();
+        stage.close();
+    }
 }

@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 <BorderPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
+            xmlns:fx="http://javafx.com/fxml" styleClass="background"
             fx:controller="com.example.projekt2.Controllers.OptionsController"
             prefHeight="400.0" prefWidth="600.0" fx:id="borderPane" stylesheets="@styleMenu.css">
 
