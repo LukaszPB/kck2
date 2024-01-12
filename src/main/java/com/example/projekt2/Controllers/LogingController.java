@@ -2,10 +2,12 @@ package com.example.projekt2.Controllers;
 
 import com.example.projekt2.Main;
 import com.example.projekt2.StageProperties;
+import com.example.projekt2.User;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
@@ -24,7 +26,7 @@ public class LogingController {
     @FXML
     private TextField login;
     @FXML
-    private TextField password;
+    private PasswordField password;
     @FXML
     private TextField name;
     @FXML
@@ -53,6 +55,7 @@ public class LogingController {
             while (scanner.hasNext()) {
                 linia = scanner.nextLine().split(" ");
                 if(linia[0].equals(login.getText()) && linia[1].equals(password.getText())) {
+                    User.getInstance().setUsername(linia[0]);
                     FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("menuView.fxml"));
                     Scene scene = new Scene(fxmlLoader.load(), StageProperties.STAGE_WIDTH, StageProperties.STAGE_HEIGHT);
                     Stage stage = (Stage) borderPane.getScene().getWindow();
@@ -104,6 +107,8 @@ public class LogingController {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+
+            User.getInstance().setUsername(login.getText());
 
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("menuView.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), StageProperties.STAGE_WIDTH, StageProperties.STAGE_HEIGHT);

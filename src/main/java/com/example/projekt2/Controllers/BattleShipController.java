@@ -6,6 +6,7 @@ import com.example.projekt2.BattleShip.Point;
 import com.example.projekt2.BattleShip.Ships.*;
 import com.example.projekt2.Main;
 import com.example.projekt2.StageProperties;
+import com.example.projekt2.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -21,13 +22,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Objects;
-import java.util.Scanner;
+import java.io.*;
+import java.util.*;
 
 public class BattleShipController{
     @FXML
@@ -43,6 +39,7 @@ public class BattleShipController{
     private boolean gameEnded;
     private boolean newGame;
     private int difficulty;
+    private int time;
     @FXML
     private void initialize() {
         String fleetType;
@@ -245,6 +242,7 @@ public class BattleShipController{
                 computerMove();
             }
             if(computer.wasDefeated()) {
+                registerGame("win");
                 System.out.println("Wygrałeś");
                 title.getStyleClass().add("green");
                 borderPane.getStyleClass().add("green_frame");
@@ -281,6 +279,7 @@ public class BattleShipController{
                 button.getStyleClass().add("red-square");
 
                 if(human.wasDefeated()) {
+                    registerGame("lose");
                     System.out.println("Przegrałeś");
                     borderPane.getStyleClass().add("red_frame");
                     title.getStyleClass().add("red");
@@ -304,6 +303,15 @@ public class BattleShipController{
             }
         }
     }
+    private void registerGame(String result) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(StageProperties.GAME_REGISTER_FILE_PATH, true))) {
+            writer.write(User.getInstance().getUsername() + ";Battleship;" + difficulty + ";" +
+                    result + ";" + (int)(System.currentTimeMillis() - time)/1000 + ";" + new Date());
+            writer.newLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     @FXML
     private void backToMenu() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("menuView.fxml"));
@@ -321,6 +329,7 @@ public class BattleShipController{
     @FXML
     private void startGame() {
         if(newGame) {
+            time = (int) System.currentTimeMillis();
             for(Node node : anchorPaneRight.getChildren()) {
                 if(node instanceof Button && human.hasShipOnPoint(
                         new Point((int) node.getLayoutY()/30-1,(int) node.getLayoutX()/30-1)) ) {

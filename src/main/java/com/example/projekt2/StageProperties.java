@@ -19,4 +19,5 @@ public class StageProperties {
     };
     public static String USERS_FILE_PATH = "src/main/resources/com/example/projekt2/files/users";
     public static String SETTINGS_FILE_PATH = "src/main/resources/com/example/projekt2/files/settings";
+    public static String GAME_REGISTER_FILE_PATH = "src/main/resources/com/example/projekt2/files/gameRegister";
 }

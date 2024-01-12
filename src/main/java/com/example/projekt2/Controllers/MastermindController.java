@@ -2,6 +2,7 @@ package com.example.projekt2.Controllers;
 
 import com.example.projekt2.Main;
 import com.example.projekt2.StageProperties;
+import com.example.projekt2.User;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -16,7 +17,9 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
 
@@ -43,8 +46,9 @@ public class MastermindController {
             CornerRadii.EMPTY,
             new BorderWidths(10) // Grubość ramki
     );
-    private int round;
-    private boolean allowDuplicates;
+    private int round = 0;
+    private int allowDuplicates;
+    private int time;
     @FXML
     private void initialize() {
         setBoard();
@@ -59,14 +63,14 @@ public class MastermindController {
 
             scanner.nextLine();
             scanner.nextLine();
-            allowDuplicates = scanner.nextLine().equals("yes");
+            allowDuplicates = scanner.nextLine().equals("yes") ? 1 : 0;
             scanner.close();
         }
         catch (IOException e) {
             e.printStackTrace();
         }
 
-        if(allowDuplicates) {
+        if(allowDuplicates == 1) {
             answer = new Color[]{
                     StageProperties.COLORS[random.nextInt(8)],
                     StageProperties.COLORS[random.nextInt(8)],
@@ -267,6 +271,9 @@ public class MastermindController {
         if(gameEnded) {
             return;
         }
+        if(round == 0) {
+            time = (int) System.currentTimeMillis();
+        }
         var circles = getAllCircles();
         for(Circle c : circles) {
             if(c.getFill().equals(blankCircleColor)) {return; }
@@ -285,6 +292,7 @@ public class MastermindController {
 
         if(hint == 4) {
             showAnswers();
+            registerGame("win");
             System.out.println("Wygrałeś");
             borderPane.setBorder(new Border(greenFrame));
             title.getStyleClass().add("green");
@@ -302,6 +310,7 @@ public class MastermindController {
         }
         if(round == 9) {
             showAnswers();
+            registerGame("lost");
             System.out.println("Przegrałeś");
             borderPane.setBorder(new Border(redFrame));
             title.getStyleClass().add("red");
@@ -309,6 +318,15 @@ public class MastermindController {
             return;
         }
         round++;
+    }
+    private void registerGame(String result) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(StageProperties.GAME_REGISTER_FILE_PATH, true))) {
+            writer.write(User.getInstance().getUsername() + ";Mastermind;" + allowDuplicates + ";" +
+                    result + ";" + (int)(System.currentTimeMillis() - time)/1000 + ";" + new Date());
+            writer.newLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     @FXML
     private void backToMenu() throws IOException {
