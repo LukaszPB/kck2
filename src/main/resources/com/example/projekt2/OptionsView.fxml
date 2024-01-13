@@ -13,7 +13,7 @@
         <Label text="Settings" alignment="CENTER" BorderPane.alignment="CENTER" styleClass="title">
             <font><Font name="Times New Roman bold" size="50"/></font>
             <padding>
-                <Insets top="25"/>
+                <Insets top="15"/>
             </padding>
         </Label>
     </top>
@@ -67,7 +67,7 @@
             <Button styleClass="menuButton" text="Save" onAction="#save"/>
             <Button styleClass="menuButton" text="Back" onAction="#backToMenu"/>
             <padding>
-                <Insets bottom="30"/>
+                <Insets bottom="20" top="20"/>
             </padding>
         </HBox>
     </bottom>

@@ -17,7 +17,7 @@
     </top>
 
     <center>
-        <VBox alignment="CENTER" BorderPane.alignment="CENTER" spacing="30">
+        <VBox alignment="CENTER" BorderPane.alignment="CENTER" spacing="10">
             <VBox alignment="CENTER" BorderPane.alignment="CENTER">
                 <Label text="login:" alignment="CENTER" BorderPane.alignment="CENTER" styleClass="title">
                     <font><Font name="Times New Roman bold" size="25"/></font>
@@ -25,7 +25,7 @@
                         <Insets bottom="10"/>
                     </padding>
                 </Label>
-                <TextField maxWidth="200" fx:id="login"/>
+                <TextField maxWidth="200" fx:id="login" styleClass="login"/>
             </VBox>
 
             <VBox alignment="CENTER" BorderPane.alignment="CENTER">
@@ -35,7 +35,7 @@
                         <Insets bottom="10"/>
                     </padding>
                 </Label>
-                <TextField maxWidth="200" fx:id="name"/>
+                <TextField maxWidth="200" fx:id="name" styleClass="login"/>
             </VBox>
 
             <VBox alignment="CENTER" BorderPane.alignment="CENTER">
@@ -45,7 +45,7 @@
                         <Insets bottom="10"/>
                     </padding>
                 </Label>
-                <PasswordField maxWidth="200" fx:id="password"/>
+                <PasswordField maxWidth="200" fx:id="password" styleClass="login"/>
             </VBox>
 
             <Label fx:id="message" alignment="CENTER" BorderPane.alignment="CENTER" styleClass="title">

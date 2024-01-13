@@ -51,9 +51,13 @@ public class LogingController {
         try {
             Scanner scanner = new Scanner(new File(StageProperties.USERS_FILE_PATH));
             String[] linia;
+            message.setTextFill(Color.RED);
 
             while (scanner.hasNext()) {
                 linia = scanner.nextLine().split(" ");
+                if(login.getText().equals("") || password.getText().equals("")) {
+                    message.setText("login and password cannot be empty");
+                }
                 if(linia[0].equals(login.getText()) && linia[1].equals(password.getText())) {
                     User.getInstance().setUsername(linia[0]);
                     FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("menuView.fxml"));
@@ -62,9 +66,11 @@ public class LogingController {
                     stage.setScene(scene);
                 }
             }
+            if(!login.getText().equals("") && !password.getText().equals("")) {
+                message.setText("User not found");
+            }
+
             scanner.close();
-            message.setText("User not found!");
-            message.setTextFill(Color.RED);
         }
         catch (IOException e) {
             e.printStackTrace();

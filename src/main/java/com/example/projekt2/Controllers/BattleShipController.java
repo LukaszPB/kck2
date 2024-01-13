@@ -42,10 +42,12 @@ public class BattleShipController{
     private boolean newGame;
     private int difficulty;
     private int time;
-    private int ile = 0,ileB = 0, ileP=0;
     @FXML
     private void initialize() {
+        int ile = 0,ileB = 0, ileP=0;
         String fleetType;
+        String allowDuplicates;
+
         try {
             Scanner scanner = new Scanner(new File(StageProperties.SETTINGS_FILE_PATH));
 
@@ -55,6 +57,7 @@ public class BattleShipController{
                 case "normal" -> difficulty = 1;
                 case "hard" -> difficulty = 2;
             }
+            allowDuplicates = scanner.nextLine();
             scanner.close();
         }
         catch (FileNotFoundException e) {
@@ -77,28 +80,6 @@ public class BattleShipController{
             e.printStackTrace();
         }
         String[] date1 = new Date().toString().split(" ");
-
-        for(String[] s : list) {
-            String[] date2 = s[5].split(" ");
-            if(date1[1].equals(date2[1]) && date1[2].equals(date2[2]) && date1[5].equals(date2[5])) {
-                ile++;
-            }
-            if(!s[1].equals("Battleship")) {}
-            else if(s[3].equals("win")) {
-                ileB++;
-                ileP=0;
-            }
-            else {
-                ileB=0;
-                ileP++;
-            }
-        }
-        if(ile > 10) {
-            message.setText("you've already played 10 games, that's enough for today");
-        }
-        else if(ileB >= 5) {
-            message.setText("Congratulations, " + ileB + " wins in a row!");
-        }
 
         ArrayList<Ship> prototype;
         if(fleetType.equals("polish")) {
@@ -129,6 +110,38 @@ public class BattleShipController{
                 "-fx-background-size: cover;";
 
         borderPane.setStyle(backgroundStyle);
+
+        for(String[] s : list) {
+            String[] date2 = s[5].split(" ");
+            if(date1[1].equals(date2[1]) && date1[2].equals(date2[2]) && date1[5].equals(date2[5])) {
+                ile++;
+            }
+            if(!s[1].equals("Battleship")) {}
+            else if(s[3].equals("win")) {
+                ileB++;
+                ileP=0;
+            }
+            else {
+                ileB=0;
+                ileP++;
+            }
+        }
+        if(ile > 10) {
+            message.setText("you've already played 10 games, that's enough for today");
+            newGame=false;
+        }
+        else if(ileB >= 5) {
+            message.setText("Congratulations, " + ileB + " wins in a row!");
+        }
+        else if(ileP >= 5) {
+            try (FileWriter writer = new FileWriter(StageProperties.SETTINGS_FILE_PATH,false)) {
+                writer.write(fleetType + "\neasy\n" + allowDuplicates);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            message.setText("to many defeats in a row, the difficulty level has been reduced until you win");
+        }
     }
     private void setBoard() {
         for(int i=1;i<=10;i++) {
@@ -284,11 +297,6 @@ public class BattleShipController{
                 computerMove();
             }
             if(computer.wasDefeated()) {
-                ileB++;
-                ileP=0;
-                if(ileB >= 5) {
-                    message.setText("Congratulations, " + ileB + " wins in a row!");
-                }
                 registerGame("win");
                 System.out.println("Wygrałeś");
                 title.getStyleClass().add("green");
@@ -326,16 +334,6 @@ public class BattleShipController{
                 button.getStyleClass().add("red-square");
 
                 if(human.wasDefeated()) {
-                    ileB=0;
-                    ileP++;
-                    if(ileP>5) {
-                        difficulty--;
-                        if(difficulty<0) {
-                            difficulty=0;
-                        }
-                        message.setText("Five defeats in a row, the difficulty level has been reduced until you win");
-                        ileP=0;
-                    }
                     registerGame("lose");
                     System.out.println("Przegrałeś");
                     borderPane.getStyleClass().add("red_frame");
@@ -385,12 +383,6 @@ public class BattleShipController{
     @FXML
     private void startGame() {
         if(newGame) {
-            ile++;
-            if(ile > 10) {
-                message.setText("you've already played 10 games, that's enough for today");
-                return;
-            }
-
             time = (int) System.currentTimeMillis();
             for(Node node : anchorPaneRight.getChildren()) {
                 if(node instanceof Button && human.hasShipOnPoint(

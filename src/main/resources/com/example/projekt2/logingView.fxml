@@ -26,7 +26,7 @@
                         <Insets bottom="10"/>
                     </padding>
                 </Label>
-                <TextField maxWidth="200" fx:id="login"/>
+                <TextField maxWidth="200" fx:id="login" styleClass="login"/>
             </VBox>
 
             <VBox alignment="CENTER" BorderPane.alignment="CENTER">
@@ -36,7 +36,7 @@
                         <Insets bottom="10"/>
                     </padding>
                 </Label>
-                <PasswordField maxWidth="200" fx:id="password"/>
+                <PasswordField maxWidth="200" fx:id="password" styleClass="login"/>
             </VBox>
 
             <Label fx:id="message" alignment="CENTER" BorderPane.alignment="CENTER" styleClass="title">

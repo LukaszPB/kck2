@@ -27,6 +27,7 @@ public class ChoosingGameController {
     private BorderPane borderPane;
     @FXML
     private Label massage;
+    private boolean canPlay = true;
 
     @FXML
     private void initialize() {
@@ -36,6 +37,9 @@ public class ChoosingGameController {
 
         borderPane.setStyle(backgroundStyle);
         imageView1.setOnMousePressed((event)->{
+            if(!canPlay) {
+                return;
+            }
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("battleShipView.fxml"));
             Scene scene = null;
             try {
@@ -47,6 +51,9 @@ public class ChoosingGameController {
             stage.setScene(scene);
         });
         imageView2.setOnMousePressed((event)->{
+            if(!canPlay) {
+                return;
+            }
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("mastermindView.fxml"));
             Scene scene = null;
             try {
@@ -89,6 +96,7 @@ public class ChoosingGameController {
         }
         if(ile > 10) {
             massage.setText("you've already played 10 games, that's enough for today");
+            canPlay = false;
         }
         else if(ileB == 0 && ileM > 5) {
             massage.setText("you haven't tried battleships yet, maybe it's worth it");
